@@ -4,7 +4,7 @@ Un minijuego de búsqueda del tesoro para FiveM desarrollado por JarssS8. Los ju
 
 ## 🎥 Video Demostración
 
-[![Video Demostración](https://img.shields.io/badge/🎬-Ver%20Demo-red?style=for-the-badge)](https://cdn.discordapp.com/attachments/1134554054719188992/1381899724155785226/2025-06-10-09-28-17.mp4?ex=6881e268&is=688090e8&hm=d2597230195782b46248d001dd9410e93096805dae3882cb292da375a85fff1d&)
+[![Video Demostración](https://img.shields.io/badge/🎬-Ver%20Demo-red?style=for-the-badge)](https://youtu.be/m9vR0anAlzI)
 
 > Haz clic en el enlace para ver el minijuego en acción con todas sus características y modos de juego.
 
