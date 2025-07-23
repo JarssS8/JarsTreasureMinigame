@@ -4,7 +4,7 @@ A treasure hunt minigame for FiveM developed by JarssS8. Players must find a hid
 
 ## 🎥 Video Demo
 
-[![Video Demo](https://img.shields.io/badge/🎬-Watch%20Demo-red?style=for-the-badge)](https://youtu.be/m9vR0anAlzI)
+[![Video Demo](https://img.shields.io/badge/🎬-Watch%20Demo-red?style=for-the-badge)](https://youtu.be/kaVq1YsJrPo)
 
 > Click the link to see the minigame in action with all its features and game modes.
 
