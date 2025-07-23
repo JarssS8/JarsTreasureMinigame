@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Búsqueda del Tesoro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: transparent;
+            color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 2rem;
+            overflow: hidden
+        }
+
+        #grid {
+            display: grid;
+            gap: 4px;
+            justify-content: center;
+        }
+
+        .cell {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(42, 42, 61, 0.8);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.6rem;
+            font-weight: 700;
+            cursor: pointer;
+            user-select: none;
+            border: 1px solid #555;
+            color: #fff
+        }
+
+        .cell.clicked {
+            cursor: default
+        }
+
+        .cell i,
+        .cell span,
+        .cell {
+            text-shadow:
+                -1px -1px 0 #000,
+                 1px -1px 0 #000,
+                -1px  1px 0 #000,
+                 1px  1px 0 #000;
+        }
+
+        #info {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: .5rem;
+            border-radius: 5px
+        }
+
+        #timeBarContainer {
+            width: 100%;
+            max-width: 320px;
+            height: 12px;
+            background: #333;
+            border-radius: 6px;
+            margin-top: 12px
+        }
+
+        #timeBar {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #0eb05a, #ffd966, #ff4d4d);
+            border-radius: 6px;
+            transition: width .2s
+        }
+
+        h1 {
+            text-shadow: 2px 2px 4px #000
+        }
+               
+        #minigame-frame {
+            background: rgba(30, 30, 50, 0.95);
+            border: 2px solid #888;
+            border-radius: 18px;
+            box-shadow: 0 6px 32px #000a, 0 1.5px 0 #fff2 inset;
+            padding: 2.5rem 2.5rem 1.5rem 2.5rem;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>    <div id="minigame-frame">
+        <h1>Búsqueda del Tesoro</h1>
+
+        <div id="grid"></div>
+
+        <div id="info" style="display: none;">
+            Intentos restantes: <span id="attemptsLeft">8</span>
+            &nbsp;|&nbsp;
+            Tiempo restante: <span id="timeLeft">30</span> s
+        </div>
+
+        <div id="timeBarContainer">
+            <div id="timeBar"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
