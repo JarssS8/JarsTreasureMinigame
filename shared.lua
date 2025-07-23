@@ -2,7 +2,7 @@
 
 JTM = JTM or {}
 JTM.Config = {
-    Debug = false, -- Enable/disable debug messages
+    Debug = true, -- Enable/disable debug messages
     HintMode = "number", -- Options: "number", "icons" or "none"
     VisualMode = "color", -- Options: "color" or "nocolor"
     GridSize = 5, -- Size of the grid for the minigame
@@ -65,14 +65,19 @@ JTM.Shared = {
             return
         end
         
-        local repoUrl = "https://raw.githubusercontent.com/" .. JTM.Config.GitHubRepo .. "/main/fxmanifest.lua"
+        local repoUrl = "https://raw.githubusercontent.com/" .. JTM.Config.GitHubRepo .. "/master/fxmanifest.lua"
         
         JTM.Shared.DebugPrint("^5[VERSION] Checking for updates from: " .. repoUrl .. "^7")
         
         PerformHttpRequest(repoUrl, function(statusCode, response, headers)
             if statusCode == 200 and response then
-                local latestVersion = string.match(response, "version%s+['\"]([^'\"]+)['\"]")
+                -- Use word boundary to ensure we match exactly "version" and not "fx_version"
+                local latestVersion = string.match(response, "\nversion%s*=%s*['\"]([^'\"]+)['\"]") or
+                                    string.match(response, "\nversion%s+['\"]([^'\"]+)['\"]") or
+                                    string.match(response, "^version%s*=%s*['\"]([^'\"]+)['\"]") or
+                                    string.match(response, "^version%s+['\"]([^'\"]+)['\"]")
                 
+
                 if latestVersion then
                     JTM.Shared.DebugPrint("^5[VERSION] Current: " .. currentVersion .. " | Latest: " .. latestVersion .. "^7")
                     
@@ -86,6 +91,7 @@ JTM.Shared = {
                     end
                 else
                     JTM.Shared.DebugPrint("^1[VERSION] Could not parse version from response^7")
+                    JTM.Shared.DebugPrint("^1[VERSION] Full response: " .. response .. "^7")
                 end
             else
                 JTM.Shared.DebugPrint("^1[VERSION] Failed to check version. Status: " .. (statusCode or "unknown") .. "^7")

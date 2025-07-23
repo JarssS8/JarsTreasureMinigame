@@ -8,6 +8,14 @@ function JTM.CloseMinigame()
     SendNuiMessage(json.encode({ type = "hideUI" }))
 end
 
+-- Function to force reset minigame state
+function JTM.ResetMinigame()
+    JTM.Shared.DebugPrint("^3[CLIENT] Resetting minigame state.^7")
+    isMinigameActive = false
+    SetNuiFocus(false, false)
+    SendNuiMessage(json.encode({ type = "hideUI" }))
+end
+
 
 -- Register a command to start the treasure minigame
 -- Example usage: /treasure-minigame number color 5 8 10
@@ -19,7 +27,14 @@ RegisterCommand('treasure-minigame', function(source, args, rawCommand)
         JTM.Shared.DebugPrint("^1[CLIENT] Debug mode is disabled. Command will not execute.^7")
         return
     end
-    isMinigameActive = true
+    
+    -- Force reset state before starting
+    if isMinigameActive then
+        JTM.Shared.DebugPrint("^3[CLIENT] Minigame was active, resetting state...^7")
+        JTM.ResetMinigame()
+        Citizen.Wait(100) -- Small delay to ensure cleanup
+    end
+    
     local hintMode = args[1] or JTM.Config.HintMode
     local visualMode = args[2] or JTM.Config.VisualMode
     local gridSize = tonumber(args[3]) or JTM.Config.GridSize
@@ -27,6 +42,17 @@ RegisterCommand('treasure-minigame', function(source, args, rawCommand)
     local time = tonumber(args[5]) or JTM.Config.Time
     
     JTM.StartTreasureMinigame(hintMode, visualMode, gridSize, attempts, time)
+end, false)
+
+-- Command to reset minigame state if stuck
+RegisterCommand('treasure-reset', function(source, args, rawCommand)
+    if not JTM.Config.Debug then
+        return
+    end
+    
+    JTM.Shared.DebugPrint("^3[CLIENT] Manual reset command executed.^7")
+    JTM.ResetMinigame()
+    print("^2[JARS-MINIGAMES] Minigame state has been reset.^7")
 end, false)
 
 function JTM.StartTreasureMinigame(hintMode, visualMode, gridSize, attempts, time)
@@ -76,5 +102,21 @@ RegisterNuiCallback('closeUI', function(data, cb)
     JTM.CloseMinigame()
     TriggerServerEvent('treasure:gameResult', false)
     cb('ok')
+end)
+
+-- ESC key listener to ensure proper cleanup
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(0)
+        if isMinigameActive then
+            if IsControlJustPressed(0, 322) then -- ESC key
+                JTM.Shared.DebugPrint("^3[CLIENT] ESC pressed, closing minigame^7")
+                JTM.CloseMinigame()
+                TriggerServerEvent('treasure:gameResult', false)
+            end
+        else
+            Citizen.Wait(1000) -- Reduce frequency when minigame is not active
+        end
+    end
 end)
 

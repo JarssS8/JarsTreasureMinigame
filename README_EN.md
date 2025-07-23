@@ -2,6 +2,12 @@
 
 A treasure hunt minigame for FiveM developed by JarssS8. Players must find a hidden cell in a grid before time runs out or attempts are exhausted.
 
+## 🎥 Video Demo
+
+[![Video Demo](https://img.shields.io/badge/🎬-Watch%20Demo-red?style=for-the-badge)](https://cdn.discordapp.com/attachments/1134554054719188992/1381899724155785226/2025-06-10-09-28-17.mp4?ex=6881e268&is=688090e8&hm=d2597230195782b46248d001dd9410e93096805dae3882cb292da375a85fff1d&)
+
+> Click the link to see the minigame in action with all its features and game modes.
+
 ## 📋 Features
 
 - **Multiple hint modes**: Numbers, icons or no hints
@@ -254,7 +260,7 @@ end
 
 ## 📝 License
 
-Developed by **JarssS8** {https://github.com/JarssS8}. 
+Developed by **JarssS8** https://github.com/JarssS8. 
 Free to use without changing the script name
 
 ## 🤝 Contributions
